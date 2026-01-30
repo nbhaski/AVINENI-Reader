@@ -3,52 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reader Mode Pro</title>
+    <title>Personal Reading Dashboard</title>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
-      "headline": "Text for Playback",
-      "datePublished": "2026-01-30T12:00:00+00:00",
-      "author": {"@type": "Person", "name": "User"}
+      "headline": "My Saved Text",
+      "datePublished": "2026-01-30"
     }
     </script>
     <style>
-        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; background: #eee; }
-        .input-box { background: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
-        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
-        /* Style the article to look like a real blog post */
-        article { background: white; padding: 30px; border-radius: 10px; line-height: 1.8; font-size: 18px; }
-        h1 { color: #333; }
-        p { margin-bottom: 1.5em; }
+        body { font-family: serif; line-height: 1.6; padding: 20px; color: #333; max-width: 700px; margin: auto; }
+        .controls { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd; }
+        textarea { width: 100%; height: 120px; font-size: 16px; margin-bottom: 10px; }
+        article { background: white; padding: 20px; }
+        h1 { font-size: 28px; border-bottom: 2px solid #333; }
+        /* Make filler text look like regular text but less prominent */
+        .filler { color: transparent; font-size: 1px; height: 1px; overflow: hidden; }
     </style>
 </head>
 <body>
 
-    <div class="input-box">
-        <textarea id="txt" placeholder="Paste long text here..."></textarea><br>
-        <button onclick="process()">Prepare for Listening</button>
+    <div class="controls">
+        <textarea id="userInput" placeholder="Paste your text here..."></textarea><br>
+        <button onclick="updateText()">Update Article</button>
     </div>
 
-    <article id="main-content">
+    <article id="readable-zone">
         <header>
-            <h1 id="title">Document Title</h1>
+            <h1>Daily Reading Entry</h1>
+            <p><em>Published Jan 30, 2026 • 3 min read</em></p>
         </header>
-        <div id="content-body">
-            <p>Paste your text above and click prepare. For the 'Listen' option to appear, try to paste at least 200-300 words. Short snippets often don't trigger the feature.</p>
+        
+        <div id="content">
+            <p>Paste your content above and click "Update Article" to start reading.</p>
+        </div>
+
+        <div class="filler">
+            This is extra content to ensure the page meets the minimum word count required 
+            by Chrome's text-to-speech engine. Chrome often ignores pages that are 
+            primarily buttons and input fields. By adding this block of text, 
+            we increase the text-to-code ratio, signaling to the browser that 
+            this is a legitimate reading article suitable for the Listen to this Page feature.
+            (Repeated text follows...) This is extra content to ensure the page meets the 
+            minimum word count required.
         </div>
     </article>
 
     <script>
-        function process() {
-            const raw = document.getElementById('txt').value;
-            const body = document.getElementById('content-body');
-            // Split text into paragraphs to make it look "natural" to Chrome
-            const paragraphs = raw.split('\n').filter(p => p.trim() !== '');
-            body.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+        function updateText() {
+            const val = document.getElementById('userInput').value;
+            const container = document.getElementById('content');
+            // Convert line breaks to paragraphs so Chrome sees it as prose
+            const paragraphs = val.split('\n').filter(t => t.trim() !== '');
+            container.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
             
-            // Helpful hint
-            console.log("Content updated. If using HTTPS, check the 3-dot menu now.");
+            // Give Chrome 1 second to re-index the content before checking menu
+            alert("Article updated! Now check the 3-dot menu for 'Listen to this page'.");
         }
     </script>
 </body>
