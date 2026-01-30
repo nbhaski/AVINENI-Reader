@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader Mode Pro</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Text for Playback",
+      "datePublished": "2026-01-30T12:00:00+00:00",
+      "author": {"@type": "Person", "name": "User"}
+    }
+    </script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; background: #eee; }
+        .input-box { background: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        /* Style the article to look like a real blog post */
+        article { background: white; padding: 30px; border-radius: 10px; line-height: 1.8; font-size: 18px; }
+        h1 { color: #333; }
+        p { margin-bottom: 1.5em; }
+    </style>
+</head>
+<body>
+
+    <div class="input-box">
+        <textarea id="txt" placeholder="Paste long text here..."></textarea><br>
+        <button onclick="process()">Prepare for Listening</button>
+    </div>
+
+    <article id="main-content">
+        <header>
+            <h1 id="title">Document Title</h1>
+        </header>
+        <div id="content-body">
+            <p>Paste your text above and click prepare. For the 'Listen' option to appear, try to paste at least 200-300 words. Short snippets often don't trigger the feature.</p>
+        </div>
+    </article>
+
+    <script>
+        function process() {
+            const raw = document.getElementById('txt').value;
+            const body = document.getElementById('content-body');
+            // Split text into paragraphs to make it look "natural" to Chrome
+            const paragraphs = raw.split('\n').filter(p => p.trim() !== '');
+            body.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+            
+            // Helpful hint
+            console.log("Content updated. If using HTTPS, check the 3-dot menu now.");
+        }
+    </script>
+</body>
+</html>
